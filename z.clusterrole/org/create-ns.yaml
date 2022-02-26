@@ -1,0 +1,17 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  creationTimestamp: "2020-03-14T17:42:40Z"
+  labels:
+    cattle.io/creator: norman
+  name: create-ns
+  resourceVersion: "983"
+  selfLink: /apis/rbac.authorization.k8s.io/v1/clusterroles/create-ns
+  uid: 8c366df4-f820-48dd-9583-7a6d7c2f73ef
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - namespaces
+  verbs:
+  - create

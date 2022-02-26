@@ -1,0 +1,32 @@
+apiVersion:v1
+data:
+  Corefile: |
+    .:53 {
+      errors
+      health {
+        lameduck 5s
+      }
+      ready
+      hosts {
+        192.168.2.210 gitlab.example.com
+        192.168.2.210 registry.example.com
+        fallthrough
+      }
+      kubernetes cluster.local in-addr.arpa ip6.arpa {
+        pods insecure
+        fallthrough in-addr.arpa ip6.arpa
+      }
+      prometheus :9153
+      forward . /etc/resolv.conf
+      cache 30
+      loop
+      reload
+      loadbalance
+}
+kind:ConfigMap
+metadata
+  annotations:{}
+  creationTimestamp:null
+  name:coredns
+  namespace:kube-system
+  selfLink:/api/v1/namespaces/kube-system/configmaps/coredns

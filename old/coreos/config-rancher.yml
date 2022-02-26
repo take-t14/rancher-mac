@@ -1,0 +1,31 @@
+#cloud-config
+
+hostname: rancher
+
+users:
+  - name: core
+    passwd: $1$PdoEvWcZ$eJIP215wzefIbrWEN9/Pn/
+    groups:
+      - sudo
+      - docker
+    ssh-authorized-keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDgk9OAt+VTSVBjpnTzyj03pt0jwaSsNZhyocG0/85UN5ShSBhX30GnuFh3wvD0UmB0SfxxLEOdxm3DqBHzbCVcP/OtRLuYjbw+CQWaCqY84QBiQy1vuAIcfYen6TS3XCzDINx1xfyyD2rIaMnlQ/L6Ut0aKsVJIkVAcJ0ubRF0L/jExFnb2vPGJtf0a6tZ4990F1+KClvf5c0NdbY2P1wOB/SNbD2M1dvRcZBkPG8FZGFW52TjPbWX6OEk+j+wp1zEHXVYnOBXGgcxdvIgZhyULL+wsOgw1n3eCv8eS/aCZffqb2UkuGVlzjdLzIZKHlO8YwGuOv2ktwmV0k1JkgD1 root@localhost
+
+write_files:
+
+  - path: /etc/systemd/network/10-static.network
+    content: |
+      [Match]
+      Name=enp0s8
+
+      [Network]
+      Address=192.168.2.210/24
+
+  - path: /etc/systemd/network/20-nat.network
+    content: |
+      [Match]
+      Name=enp0s3
+
+      [Network]
+      Address=10.0.2.120/24
+      Gateway=10.0.2.1

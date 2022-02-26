@@ -1,0 +1,31 @@
+#cloud-config
+
+hostname: control
+
+users:
+  - name: core
+    passwd: $1$sgv95Ssl$HxIuxQq6Nk1yNMSY4Un.u.
+    groups:
+      - sudo
+      - docker
+    ssh-authorized-keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDO+7NnKJvN+3fzK0e+UuHwycgFLxifyw8YqByYhpm1UEkePJxWRyhkFgAC45ltaywbEEL7Umdq0sA9uz4dbrjrvcIn5+B3VeH4jdmw9ADtKjDmXAc5qbm2p92NYo6UQTOWWjoWAgZkvMgC0GRlgO81QIK0K/yJLvvQg3GlS2Y2QsL46DnU94zL2UdnH0DnLvBS2Gbh2FQV9OT5N9fXv4ojcaHwHLcC2aarGMdbB81wDsf1XySjChXkbMdBTRXk6y6KQInaF20OIhH25UGDCUfp7WrkjtZKGOLyTSZH1sG1opq8ML0ZZ/DthlgUFFcOTua/YjJgiD+AscISxqoX+TGd root@localhost
+
+write_files:
+
+  - path: /etc/systemd/network/10-static.network
+    content: |
+      [Match]
+      Name=enp0s8
+
+      [Network]
+      Address=192.168.57.110/24
+
+  - path: /etc/systemd/network/20-nat.network
+    content: |
+      [Match]
+      Name=enp0s3
+
+      [Network]
+      Address=10.0.2.110/24
+      Gateway=10.0.2.1

@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apache-php
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: apache-php
+  template:
+    metadata:
+      labels:
+        app: apache-php
+    spec:
+      containers:
+      - name: apache-php
+        image: registry.example.com/hatake_t14/php/apache-php:latest
+      imagePullSecrets:
+      - name: secret-registry
+#        env:
+#        - name: LC_CTYPE
+#          value: ja_JP.utf8
+        readinessProbe:
+          httpGet:
+            path: /healthcheck
+            port: 10080
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        command:
+        - sh
+        - "-c"
+        - |
+          ln -s /var/www/html/php-example/example1.co.jp /home/example1.co.jp && \
+          ln -s /var/www/html/php-example/example2.co.jp /home/example2.co.jp && \
+          ln -s /var/www/html/php-example/laravel-project /home/laravel-project && \
+          ln -s /var/www/html/php-example/nuxtapp /home/nuxtapp && \
+          supervisord -c /etc/supervisord.conf
+        ports:
+        - name: http
+          containerPort: 80
+        - name: https
+          containerPort: 443
+        volumeMounts:
+        - name: disk
+          mountPath: "/home/nuxtapp/log"
+        securityContext:
+          privileged: true
+      volumes:
+      - name: disk
+        persistentVolumeClaim:
+          claimName: apache-php-pvc

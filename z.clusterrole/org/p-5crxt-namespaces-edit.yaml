@@ -1,0 +1,26 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  annotations:
+    authz.cluster.auth.io/project-namespaces: p-5crxt-namespaces-edit
+  creationTimestamp: "2020-03-14T17:42:39Z"
+  labels:
+    cattle.io/creator: norman
+  name: p-5crxt-namespaces-edit
+  resourceVersion: "701105"
+  selfLink: /apis/rbac.authorization.k8s.io/v1/clusterroles/p-5crxt-namespaces-edit
+  uid: 0d1b6a15-8f27-40f2-a565-83ff5b370a07
+rules:
+- apiGroups:
+  - ""
+  resourceNames:
+  - default
+  - gitlab-ce
+  - apache-php
+  - p-5crxt-pipeline
+  - gitlab-runner
+  - apache-php-kttcl
+  resources:
+  - namespaces
+  verbs:
+  - '*'

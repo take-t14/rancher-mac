@@ -1,0 +1,16 @@
+#cloud-config
+hostname: gitlab
+rancher:
+  resize_device: /dev/sda4
+  network:
+    interfaces:
+      eth0:
+        address: 192.168.2.210/24
+        dhcp: false
+        gateway: 192.168.2.1
+  services:
+    console:
+      environment:
+        TZ: JST-9
+ssh_authorized_keys:
+  - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDrq5QgywURJSaPC0yLXTYKa73WCGLKh/5xZPFnxk0RR6bKk0lswixJqlcECK1P98vH5fJHLXGPLWcfKHWpDjH8EBVKY1gCMxlfJbbIHygtiCGrSnBwtDPX9QLVULndCdflEkOp6htqH9C4Gt8ia2qVcF+n7CxbGy+ttrTwbqy8r7PUuGh4bVXIJl2wBRlktUI+JWjiipwWz4ogHDnV/cvcdyWNeIm9t5GCrNnMkvLsKA2v+MhcEnAG3N7z5kxUZ6raAA38iMF3/pd4b1sMXzURdY9USNM50OlI+ocXFQyC/bBX/7f1HujNswo3C7Bj5wlsph+FkIOg7msdtnCDUmzF tadanobu@hatakeyamatadashiosamunoMacBook-Pro.local

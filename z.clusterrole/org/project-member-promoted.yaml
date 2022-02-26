@@ -1,0 +1,35 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  creationTimestamp: "2020-03-14T17:42:42Z"
+  labels:
+    cattle.io/creator: norman
+  name: project-member-promoted
+  resourceVersion: "1070"
+  selfLink: /apis/rbac.authorization.k8s.io/v1/clusterroles/project-member-promoted
+  uid: 30693363-7d1b-4aef-9bae-360d90c387e7
+rules:
+- apiGroups:
+  - '*'
+  resources:
+  - persistentvolumes
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - '*'
+  resources:
+  - storageclasses
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - '*'
+  resources:
+  - apiservices
+  verbs:
+  - get
+  - list
+  - watch
